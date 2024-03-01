@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Task Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    .details {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<h2>Task Details</h2>
+<div class="details">
+  <p>ID: <span th:text="${task.id}"></span></p>
+  <p>Name: <span th:text="${task.name}"></span></p>
+  <p>Description: <span th:text="${task.description}"></span></p>
+  <p>Priority:
+    <span th:switch="${task.priority}">
+            <span th:case="'LOW'" style="color: green;">Low</span>
+            <span th:case="'MEDIUM'" style="color: orange;">Medium</span>
+            <span th:case="'HIGH'" style="color: red;">High</span>
+            <span th:case="*" style="color: black;">Unknown</span>
+        </span>
+  </p>
+  <p>Date Created: <span th:text="${task.dateCreated != null ? #dates.format(task.dateCreated, 'yyyy-MM-dd HH:mm:ss.SSSSSS') : ''}"></span></p>
+  <a th:href="@{'/tasks/update/' + ${task.id}}" class="btn btn-warning">Edit Task</a>
+  <a th:href="@{'/tasks/delete/' + ${task.id}}" class="btn btn-danger">Delete Task</a>
+</div>
+</body>
+</html>

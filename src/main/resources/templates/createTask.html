@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Create Task</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<h2>Create Task</h2>
+<form th:action="@{/tasks/create}" method="post">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input type="text" class="form-control" id="description" name="description" required>
+  </div>
+  <div class="form-group">
+    <label for="priority">Priority:</label>
+    <select class="form-control" id="priority" name="priority">
+      <option value="LOW" style="color: green;">Low</option>
+      <option value="MEDIUM" style="color: orange;">Medium</option>
+      <option value="HIGH" style="color: red;">High</option>
+    </select>
+  </div>
+<!--  <div class="form-group">-->
+<!--    <label for="dateCreated">Date Created:</label>-->
+<!--    <input type="datetime-local" class="form-control" id="dateCreated" name="dateCreated" required>-->
+<!--  </div>-->
+  <button type="submit" class="btn btn-primary">Create Task</button>
+</form>
+</body>
+</html>

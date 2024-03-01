@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Task List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h2>Task List</h2>
+<div class="action-buttons">
+    <a th:href="@{/tasks/create}" class="btn btn-primary">Create Task</a>
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Date Created
+            <a th:href="@{/tasks(sort='dateCreated', order='asc')}">&#9650;</a>
+            <a th:href="@{/tasks(sort='dateCreated', order='desc')}">&#9660;</a>
+        </th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.name}"></td>
+        <td th:text="${task.description}"></td>
+        <td>
+            <span th:switch="${task.priority}">
+                <span th:case="'LOW'" style="color: green;">Low</span>
+                <span th:case="'MEDIUM'" style="color: orange;">Medium</span>
+                <span th:case="'HIGH'" style="color: red;">High</span>
+                <span th:case="*" style="color: black;">Unknown</span>
+            </span>
+        </td>
+        <td th:text="${task.dateCreated != null ? #dates.format(task.dateCreated, 'yyyy-MM-dd HH:mm:ss.SSSSSS') : ''}"></td>
+        <td>
+            <a th:href="@{'/tasks/details/' + ${task.id}}" class="btn btn-info btn-sm">Details</a>
+            <a th:href="@{'/tasks/update/' + ${task.id}}" class="btn btn-warning btn-sm">Edit</a>
+            <a th:href="@{'/tasks/delete/' + ${task.id}}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Description</th>
+        <th>Proposal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.proposal}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
